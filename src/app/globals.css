@@ -1,0 +1,126 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* Majestic Color Palette — Light Theme Tokens */
+  --color-bg-primary: #f4f4f5;
+  --color-bg-secondary: #ffffff;
+  --color-bg-tertiary: #e4e4e7;
+  --color-bg-accent: #eff6ff;
+  --color-text-primary: #09090b;
+  --color-text-secondary: #52525b;
+  --color-text-tertiary: #71717a;
+  --color-border-color: #d4d4d8;
+  --color-accent: #3b82f6;
+  --color-accent-hover: #2563eb;
+  --color-accent-active: #2dd4bf;
+  --color-accent-light: #dbeafe;
+  --color-text-on-accent: #ffffff;
+  --color-success: #10b981;
+  --color-danger: #ef4444;
+  --color-danger-hover: #dc2626;
+  --color-warning: #f59e0b;
+
+  /* Shadow & Glass System */
+  --shadow-card: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px 0 rgba(0, 0, 0, 0.04);
+  --shadow-card-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.06), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+  --shadow-btn: 0 4px 6px -1px var(--color-accent-light), 0 2px 4px -1px var(--color-accent-light);
+
+  /* Easing Curves */
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-standard: cubic-bezier(0.4, 0.0, 0.2, 1);
+
+  /* Animations */
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slide-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes modal-in {
+    from { opacity: 0; scale: 0.95; transform: translateY(8px); }
+    to { opacity: 1; scale: 1; transform: translateY(0); }
+  }
+  @keyframes glow-pulse {
+    0%, 100% { box-shadow: 0 0 0px var(--color-accent); }
+    50% { box-shadow: 0 0 15px var(--color-accent); }
+  }
+
+  --animate-fade-in: fade-in 0.3s var(--ease-standard);
+  --animate-slide-up: slide-up 0.4s var(--ease-spring);
+  --animate-modal-in: modal-in 0.3s var(--ease-spring);
+  --animate-glow-pulse: glow-pulse 2s infinite ease-in-out;
+}
+
+/* Dark Theme Overrides */
+:root.dark {
+  --color-bg-primary: #0a0a0a;
+  --color-bg-secondary: #121212;
+  --color-bg-tertiary: #1a1a1a;
+  --color-bg-accent: #172033;
+  --color-text-primary: #ededed;
+  --color-text-secondary: #a1a1aa;
+  --color-text-tertiary: #71717a;
+  --color-border-color: #27272a;
+  --color-accent: #60a5fa;
+  --color-accent-hover: #93c5fd;
+  --color-accent-active: #5eead4;
+  --color-accent-light: #172033;
+  --color-text-on-accent: #0a0a0a;
+  --color-success: #34d399;
+  --color-danger: #f87171;
+  --color-danger-hover: #ef4444;
+  --color-warning: #fbbf24;
+}
+
+/* Global Styles */
+@layer base {
+  * {
+    @apply transition-colors duration-200 ease-standard;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-bg-primary text-text-primary min-h-[100dvh];
+    font-family: var(--font-geist-sans), system-ui, sans-serif;
+  }
+
+  button, a {
+    @apply cursor-pointer outline-none;
+    transition: background-color 200ms, transform 150ms var(--ease-spring), opacity 200ms;
+  }
+
+  button:active, a:active {
+    @apply scale-95 duration-0;
+  }
+}
+
+@layer utilities {
+  .bg-glass {
+    @apply bg-opacity-90 backdrop-blur-xl border-t border-border-color;
+    background-color: var(--color-bg-secondary);
+  }
+
+  .bg-accent-flash:active {
+    background-color: var(--color-accent-active) !important;
+  }
+
+  .card-depth {
+    @apply rounded-2xl bg-bg-secondary shadow-card hover:shadow-card-hover transition-all duration-300;
+  }
+
+  .skeleton {
+    @apply bg-bg-tertiary animate-pulse rounded-lg;
+  }
+
+  /* Hide number input spinners */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+}
